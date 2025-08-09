@@ -4,7 +4,6 @@
 
 This Go-based service manages campaign notifications using background task queues and robust authentication mechanisms to ensure secure and efficient delivery of promotional emails.
 
----
 
 ## User Roles and Permissions
 
