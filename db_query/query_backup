@@ -5,7 +5,7 @@ NAME VARCHAR(20)
 
 INSERT INTO roles(NAME)VALUES('ADMIN')
 INSERT INTO roles(NAME)VALUES('MANAGER')
-INSERT INTO roles(NAME)VALUES('ATTENDEE')
+INSERT INTO roles(NAME)VALUES('CUSTOMER')
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,3 +18,78 @@ CREATE TABLE users (
     updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_users_role_id FOREIGN KEY (role_id) REFERENCES roles(id)
 );
+
+CREATE TABLE campaigns
+(
+id          INT AUTO_INCREMENT PRIMARY KEY,
+title       VARCHAR(255) NOT NULL,
+DESCRIPTION TEXT,
+remarks    VARCHAR(250),
+STATUS    VARCHAR(50),
+start_time  DATETIME,
+end_time    DATETIME,
+created_by  INT          NOT NULL,
+updated_by  INT,
+created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+CONSTRAINT fk_campaigns_created_by FOREIGN KEY (created_by) REFERENCES users (id)
+);
+
+CREATE TABLE role_permissions
+(
+    role_id       INT,
+    permission_id INT,
+    created_at    DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at    DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (role_id, permission_id),
+    CONSTRAINT fk_role_permissions_role_id FOREIGN KEY (role_id) REFERENCES roles (id),
+    CONSTRAINT fk_role_permissions_permission_id FOREIGN KEY (permission_id) REFERENCES permissions (id)
+);
+
+
+CREATE TABLE permissions
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    permission  VARCHAR(50)  NOT NULL,
+    DESCRIPTION VARCHAR(100) NOT NULL DEFAULT '',
+    created_at  DATETIME              DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT permission UNIQUE (permission)
+);
+INSERT INTO users(email, PASSWORD, first_name, last_name, role_id)
+VALUES ('mishu.cste08@gmail.com', '$2a$10$yfzelFs/7Os5UNCUfc45Xe9oXJRxDkN6MrP0Au8F88xTq5/DPsJjC', 'Mariam', 'Mishu', 1);
+
+
+INSERT INTO permissions (permission, DESCRIPTION)
+VALUES ('user.create', 'Permission to create a new user'),
+       ('user.update', 'Permission to update an existing user'),
+       ('user.fetch', 'Permission to fetch a specific user'),
+       ('user.list', 'Permission to list users'),
+       ('user.delete', 'Permission to delete a user'),
+       ('campaign.create', 'Permission to create a new campaign'),
+       ('campaign.update', 'Permission to update an existing campaign'),
+       ('campaign.fetch', 'Permission to fetch a specific campaign'),
+       ('campaign.list', 'Permission to list campaigns'),
+       ('campaign.delete', 'Permission to delete an campaign'),
+       ('campaign.approve_reject', 'Permission to approve or reject a campaign');
+
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 1);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 2);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 3);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 4);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 5);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (2, 3);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (2, 4);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 6);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 7);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 8);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 9);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 10);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (1, 11);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (2, 6);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (2, 7);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (2, 8);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (2, 9);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (2, 10);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (3, 8);
+INSERT INTO campaign_notification_service.role_permissions (role_id, permission_id) VALUES (3, 9);

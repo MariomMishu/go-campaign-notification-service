@@ -16,6 +16,7 @@ type AsynqService struct {
 	asynqRepo    domain.AsynqRepository
 	userRepo     domain.UserRepository
 	campaignRepo domain.CampaignRepository
+	mailSvc      domain.MailService
 }
 
 func NewAsynqService(
@@ -23,12 +24,14 @@ func NewAsynqService(
 	asynqRepo domain.AsynqRepository,
 	userRepo domain.UserRepository,
 	campaignRepo domain.CampaignRepository,
+	mailSvc domain.MailService,
 ) *AsynqService {
 	return &AsynqService{
 		config:       config,
 		asynqRepo:    asynqRepo,
 		userRepo:     userRepo,
 		campaignRepo: campaignRepo,
+		mailSvc:      mailSvc,
 	}
 }
 
@@ -41,6 +44,7 @@ func (svc *AsynqService) AsynqTaskSendEmail(roleIds []int, campaign *models.Camp
 
 	for _, user := range users {
 		task, err := svc.sendEmailCampaignApprovalTask(user, campaign)
+
 		if err != nil {
 			log.Error(fmt.Sprintf("err: [%v] occurred while creating email sending task for user: %v", err, user.Email))
 			return err
@@ -73,12 +77,10 @@ func (svc *AsynqService) sendEmailCampaignApprovalTask(user *models.User, campai
 			"Remarks":     campaign.Remarks,
 		},
 	}
-
+	svc.mailSvc.SendEmail(emailPayload)
 	return svc.asynqRepo.CreateTask(types.AsynqTaskTypeSendEmail, emailPayload)
 }
 func (svc *AsynqService) enqueueTask(task *asynq.Task, customOpts *types.AsynqOption) (taskID string, err error) {
-	fmt.Println("enqueueTask", customOpts.TaskID)
-
 	err = svc.asynqRepo.DequeueTask(customOpts.TaskID) // Ensure no duplicate tasks
 	if err != nil && !errors.Is(err, asynq.ErrTaskNotFound) {
 		log.Error(fmt.Sprintf("error: [%v] occurred while dequeuing task with ID: %s", err, customOpts.TaskID))

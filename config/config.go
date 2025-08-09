@@ -34,7 +34,7 @@ type RedisConfig struct {
 type AsynqConfig struct {
 	RedisAddr                   string
 	DB                          int
-	Password                    string
+	Pass                        string
 	Concurrency                 int
 	Queue                       string
 	Retention                   time.Duration
@@ -101,7 +101,7 @@ func LoadConfig() {
 func setDefaultConfig() {
 	config.App = &AppConfig{
 		Name:            "EMS",
-		Port:            "8080",
+		Port:            "8081",
 		NumberOfWorkers: 5,
 	}
 	config.DB = &DbConfig{
@@ -125,7 +125,7 @@ func setDefaultConfig() {
 	config.Asynq = &AsynqConfig{
 		RedisAddr:   "127.0.0.1:6379",
 		DB:          0,
-		Password:    "",
+		Pass:        "",
 		Concurrency: 10,
 		Queue:       "app",
 		Retention:   168,

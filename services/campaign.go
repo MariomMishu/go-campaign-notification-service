@@ -137,7 +137,7 @@ func (svc *CampaignServiceImpl) ApproveRejectCampaign(campaignID int, updatedBy 
 		}
 	}()
 	return &types.CampaignApproveRejectResponse{
-		Message: "Event Successful",
+		Message: "Campaign Mail Sent Successfully",
 	}, nil
 }
 

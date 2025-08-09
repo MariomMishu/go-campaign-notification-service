@@ -11,7 +11,7 @@ var asynqInspector *asynq.Inspector
 func InitAsynqClient() {
 	asynqClient = asynq.NewClient(asynq.RedisClientOpt{
 		Addr:     config.Asynq().RedisAddr,
-		Password: config.Asynq().Password,
+		Password: config.Asynq().Pass,
 		DB:       config.Asynq().DB,
 	})
 }
@@ -19,7 +19,7 @@ func InitAsynqClient() {
 func InitAsynqInspector() {
 	asynqInspector = asynq.NewInspector(asynq.RedisClientOpt{
 		Addr:     config.Asynq().RedisAddr,
-		Password: config.Asynq().Password,
+		Password: config.Asynq().Pass,
 		DB:       config.Asynq().DB,
 	})
 }

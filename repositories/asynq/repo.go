@@ -17,7 +17,17 @@ type Repository struct {
 	inspector *asynq.Inspector
 }
 
-func NewRepository(config *config.AsynqConfig, client *asynq.Client, inspector *asynq.Inspector) *Repository {
+func NewRepository(config *config.AsynqConfig) *Repository {
+	client := asynq.NewClient(asynq.RedisClientOpt{
+		Addr:     config.RedisAddr,
+		Password: config.Pass,
+		DB:       config.DB,
+	})
+	inspector := asynq.NewInspector(asynq.RedisClientOpt{
+		Addr:     config.RedisAddr,
+		Password: config.Pass,
+		DB:       config.DB,
+	})
 	return &Repository{
 		config:    config,
 		client:    client,
@@ -35,32 +45,44 @@ func (repo *Repository) CreateTask(campaign types.AsynqTaskType, data interface{
 
 func (repo *Repository) EnqueueTask(task *asynq.Task, customOpts *types.AsynqOption) (string, error) {
 	opts := repo.asynqOptions(customOpts)
-	fmt.Println("customOpts.TaskID", customOpts.TaskID)
 	taskInfo, err := repo.client.Enqueue(task, opts...)
-	fmt.Println("taskInfo", taskInfo.ID)
 	if err != nil {
 		return "", err
 	}
 	return taskInfo.ID, nil
 }
-
 func (repo *Repository) DequeueTask(taskID string) error {
-	fmt.Println("DequeueTask", taskID)
-	fmt.Println("repoConfigQueue", repo.config.Queue)
+	if repo.inspector == nil {
+		return fmt.Errorf("asynq inspector not initialized")
+	}
+
+	fmt.Println("DequeueTask", repo.config.Queue, taskID)
+
 	existingTask, err := repo.inspector.GetTaskInfo(repo.config.Queue, taskID)
-	if err != nil && !errors.Is(err, asynq.ErrTaskNotFound) {
+	if err != nil {
+		if errors.Is(err, asynq.ErrTaskNotFound) {
+			log.Infof("Task %s not found in queue %s", taskID, repo.config.Queue)
+			return nil
+		}
+		if errors.Is(err, asynq.ErrQueueNotFound) {
+			log.Warnf("Queue %s not found while trying to dequeue task %s", repo.config.Queue, taskID)
+			return nil
+		}
 		return err
 	}
-	fmt.Println("existingTask", existingTask.ID)
+
 	if existingTask == nil {
+		log.Infof("No task found with ID %s in queue %s", taskID, repo.config.Queue)
 		return nil
 	}
 
 	deleteOrCancelTask := func(task *asynq.TaskInfo) error {
 		if task.State != asynq.TaskStateActive {
-			repo.inspector.DeleteTask(repo.config.Queue, task.ID)
+			if err := repo.inspector.DeleteTask(repo.config.Queue, task.ID); err != nil {
+				return err
+			}
 		}
-		if err := repo.inspector.CancelProcessing(task.ID); err != nil {
+		if err := repo.inspector.CancelProcessing(task.ID); err != nil && !errors.Is(err, asynq.ErrTaskNotFound) {
 			return err
 		}
 		return repo.inspector.DeleteTask(repo.config.Queue, task.ID)
@@ -71,7 +93,7 @@ func (repo *Repository) DequeueTask(taskID string) error {
 		return nil
 	}
 	if err != nil {
-		log.Error("error on deleting task ", taskID, " : ", err)
+		log.Errorf("error deleting task %s: %v", taskID, err)
 		return err
 	}
 

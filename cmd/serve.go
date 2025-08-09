@@ -26,20 +26,18 @@ func Serve(cmd *cobra.Command, args []string) {
 	dbClient := conn.Db()
 	redisClient := conn.Redis()
 	emailClient := conn.EmailClient()
-	asynqClient := conn.Asynq()
-	asynqInspector := conn.AsynqInspector()
 	//worker
 	workerPool := conn.WorkerPool()
 	// repositories
 	dbRepo := db_repo.NewRepository(dbClient)
 	mailRepo := mail.NewRepository(emailClient, config.Email())
-	asynqRepo := asynq_repo.NewRepository(config.Asynq(), asynqClient, asynqInspector)
+	asynqRepo := asynq_repo.NewRepository(config.Asynq())
 	redisSvc := services.NewRedisService(redisClient)
 	userSvc := services.NewUserServiceImpl(dbRepo, redisSvc)
 	tokenSvc := services.NewTokenServiceImpl(redisSvc)
 	authSvc := services.NewAuthServiceImpl(userSvc, tokenSvc)
 	mailSvc := services.NewMailService(dbRepo, mailRepo, workerPool)
-	asynqSvc := services.NewAsynqService(config.Asynq(), asynqRepo, dbRepo, dbRepo)
+	asynqSvc := services.NewAsynqService(config.Asynq(), asynqRepo, dbRepo, dbRepo, mailSvc)
 	campaignSvc := services.NewCampaignServiceImpl(dbRepo, mailSvc, asynqSvc)
 
 	userCtrl := controllers.NewUserController(userSvc)

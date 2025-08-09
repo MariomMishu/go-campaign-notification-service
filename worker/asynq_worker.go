@@ -11,7 +11,7 @@ func StartAsynqWorker(mux *asynq.ServeMux) {
 		asynq.RedisClientOpt{
 			Addr:     config.Asynq().RedisAddr,
 			DB:       config.Asynq().DB,
-			Password: config.Asynq().Password,
+			Password: config.Asynq().Pass,
 		},
 		asynq.Config{
 			Concurrency: config.Asynq().Concurrency,
