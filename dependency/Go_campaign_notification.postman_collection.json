@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "a7a25e2b-a9dd-415f-9bde-969d60a57595",
+		"name": "Go_campaign_notification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16932997",
+		"_collection_link": "https://blue-flare-240142.postman.co/workspace/CIty-rtgs~b063c5ac-ddc4-47ee-b1a0-35fe64b63891/collection/16932997-a7a25e2b-a9dd-415f-9bde-969d60a57595?action=share&source=collection_link&creator=16932997"
+	},
+	"item": [
+		{
+			"name": "campaign",
+			"item": [
+				{
+					"name": "careate campaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiI1OGQyNzhlNS01ZjFkLTRmZTEtODJhNy0wNTBlMDcxZTMyOTYiLCJleHAiOjQ2Mzc5MjA4NjcsInJpZCI6IjE4OThjY2Y2LThlMWMtNGM1ZC1iYmQzLTU5YmUwNzUwZDRjZCIsInVpZCI6MX0.2juhuadUMyDVitLpOj6oqMMpjFmEX2_0P2yHxiLGmIE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"New Product Launch\",\r\n  \"description\": \"This campaign is for launching our new product line in Q4.\",\r\n  \"remarks\": \"High priority. Coordinate with marketing.\",\r\n  \"status\": \"Draft\",\r\n  \"start_time\": \"2025-08-01T10:00:00Z\",\r\n  \"end_time\": \"2025-08-31T18:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/campaign",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"campaign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve-reject",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiI1OGQyNzhlNS01ZjFkLTRmZTEtODJhNy0wNTBlMDcxZTMyOTYiLCJleHAiOjQ2Mzc5MjA4NjcsInJpZCI6IjE4OThjY2Y2LThlMWMtNGM1ZC1iYmQzLTU5YmUwNzUwZDRjZCIsInVpZCI6MX0.2juhuadUMyDVitLpOj6oqMMpjFmEX2_0P2yHxiLGmIE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"New Product Launch\",\r\n  \"description\": \"This campaign is for launching our new product line in Q4.\",\r\n  \"remarks\": \"High priority. Coordinate with marketing.\",\r\n  \"status\": \"Draft\",\r\n  \"start_time\": \"2025-08-01T10:00:00Z\",\r\n  \"end_time\": \"2025-08-31T18:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/campaign",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"campaign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCampaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiI1OGQyNzhlNS01ZjFkLTRmZTEtODJhNy0wNTBlMDcxZTMyOTYiLCJleHAiOjQ2Mzc5MjA4NjcsInJpZCI6IjE4OThjY2Y2LThlMWMtNGM1ZC1iYmQzLTU5YmUwNzUwZDRjZCIsInVpZCI6MX0.2juhuadUMyDVitLpOj6oqMMpjFmEX2_0P2yHxiLGmIE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"New Product Launch edit\",\r\n  \"description\": \"This campaign is for launching our new product line in Q4 edit.\",\r\n  \"remarks\": \"High priority. Coordinate with marketing edit.\",\r\n  \"status\": \"Draft\",\r\n  \"start_time\": \"2025-07-22T10:00:00Z\",\r\n  \"end_time\": \"2025-08-31T18:00:00Z\",\r\n  \"created_by\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/campaign",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"campaign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCampaign",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiJiZDgyNDU1MS01M2RmLTRlZjktOTUyYi0wMjg4ZjFhZjRhZGYiLCJleHAiOjQ2Mzc5NDMyODEsInJpZCI6ImU0ZmQ5ZjFiLTRjM2ItNDlkZC05NDFkLTI2NjMyMTI0YzU0YiIsInVpZCI6MX0.P3LDyRu0jro8sCd4KGBXlrFnYbKdjmcqLosuHAkgPiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"New Product Launch\",\r\n  \"description\": \"This campaign is for launching our new product line in Q4.\",\r\n  \"remarks\": \"High priority. Coordinate with marketing.\",\r\n  \"status\": \"Draft\",\r\n  \"start_time\": \"2025-08-01T10:00:00Z\",\r\n  \"end_time\": \"2025-08-31T18:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/campaign/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"campaign",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCampaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiJiZDgyNDU1MS01M2RmLTRlZjktOTUyYi0wMjg4ZjFhZjRhZGYiLCJleHAiOjQ2Mzc5NDMyODEsInJpZCI6ImU0ZmQ5ZjFiLTRjM2ItNDlkZC05NDFkLTI2NjMyMTI0YzU0YiIsInVpZCI6MX0.P3LDyRu0jro8sCd4KGBXlrFnYbKdjmcqLosuHAkgPiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/campaign/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"campaign",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCampaignList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiJiZDgyNDU1MS01M2RmLTRlZjktOTUyYi0wMjg4ZjFhZjRhZGYiLCJleHAiOjQ2Mzc5NDMyODEsInJpZCI6ImU0ZmQ5ZjFiLTRjM2ItNDlkZC05NDFkLTI2NjMyMTI0YzU0YiIsInVpZCI6MX0.P3LDyRu0jro8sCd4KGBXlrFnYbKdjmcqLosuHAkgPiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"New Product Launch\",\r\n  \"description\": \"This campaign is for launching our new product line in Q4.\",\r\n  \"remarks\": \"High priority. Coordinate with marketing.\",\r\n  \"status\": \"Draft\",\r\n  \"start_time\": \"2025-08-01T10:00:00Z\",\r\n  \"end_time\": \"2025-08-31T18:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/campaign/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"campaign",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "user create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mariom.mishu@example.com\",\r\n    \"password\": \"secret123\",\r\n    \"first_name\": \"Mariom\",\r\n    \"last_name\": \"Mishu\",\r\n    \"role_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/user/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiI5MGVkMjUzNi1lYTY5LTQ0OTMtOWQyZi02ZmU3NjI5ZTE0YjMiLCJleHAiOjQ2MzczMTYyNDAsInJpZCI6IjNkNzQ3NjY1LTk5M2MtNGRkZS05MjkxLTEzZDdmNzFiY2U1YSIsInVpZCI6MX0.VEakj70Ru5w7ZRyawc-0aiPbnYK0h5yjhhzoDtKWqwM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"secret123\",\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Example\",\r\n    \"role_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mariom.mishu@example.com\",\r\n    \"password\": \"secret123\",\r\n    \"first_name\": \"Mariom\",\r\n    \"last_name\": \"Mishu\",\r\n    \"role_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiI5MGVkMjUzNi1lYTY5LTQ0OTMtOWQyZi02ZmU3NjI5ZTE0YjMiLCJleHAiOjQ2MzczMTYyNDAsInJpZCI6IjNkNzQ3NjY1LTk5M2MtNGRkZS05MjkxLTEzZDdmNzFiY2U1YSIsInVpZCI6MX0.VEakj70Ru5w7ZRyawc-0aiPbnYK0h5yjhhzoDtKWqwM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiIxZjMwNDc2Ni1hMmJlLTQ0OWEtYmU1NC05NzRlN2VjNDNhMTUiLCJleHAiOjQ2MzczMTQxMzYsInJpZCI6IjZmZGU4Y2UzLWZkMWQtNGExZi1hNGJjLTI4MTQ5ZDI2ZmI0MiIsInVpZCI6Mn0.ISbHTcPsaxVRCyFILPY8xfn_0BnyjZhAdOii2pBLKqs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/user/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
